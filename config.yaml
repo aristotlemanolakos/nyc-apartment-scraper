@@ -1,0 +1,93 @@
+# NYC Apartment Scraper Configuration
+# Edit these values to match your apartment search criteria
+
+# Scraping settings
+scraping:
+  subreddit: "NYCapartments"
+  interval_minutes: 5
+  user_agent: "NYC Apartment Hunter Bot 1.0"
+
+# Price range (monthly rent in USD)
+price:
+  min: 1500
+  max: 2800
+
+# Apartment types you're looking for
+# The scraper will fuzzy match these terms
+apartment_types:
+  - "studio"
+  - "1br"
+  - "1 br"
+  - "1 bed"
+  - "1 bedroom"
+  - "one bedroom"
+
+# Neighborhoods you're interested in
+# Add any NYC neighborhoods - fuzzy matching will handle variations
+neighborhoods:
+  # Williamsburg area
+  - "williamsburg"
+  - "wburg"
+  - "w'burg"
+  - "wbg"
+  - "east williamsburg"
+  - "south williamsburg"
+  - "north williamsburg"
+
+  # Lower Manhattan
+  - "lower east side"
+  - "les"
+  - "east village"
+  - "west village"
+  - "greenwich village"
+  - "soho"
+  - "noho"
+  - "nolita"
+  - "tribeca"
+  - "financial district"
+  - "fidi"
+  - "chinatown"
+  - "two bridges"
+
+  # Add more as needed
+  - "bushwick"
+  - "greenpoint"
+  - "bed stuy"
+  - "bedford stuyvesant"
+
+# Terms that indicate listings to EXCLUDE
+# These will be fuzzy matched to catch variations
+exclude_terms:
+  - "sublease"
+  - "sublet"
+  - "sub-lease"
+  - "sub-let"
+  - "room for rent"
+  - "room available"
+  - "roommate"
+  - "roommates"
+  - "room in"
+  - "shared"
+  - "sharing"
+  - "looking for room"
+  - "seeking room"
+
+# Google Sheets settings
+google_sheets:
+  # Your Google Sheet ID (from the URL)
+  # Example: https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID_HERE/edit
+  sheet_id: "YOUR_SHEET_ID_HERE"
+
+  # Name of the worksheet tab to use
+  worksheet_name: "Apartments"
+
+  # Path to your Google service account credentials JSON
+  credentials_file: "credentials.json"
+
+# Storage settings
+storage:
+  # File to track seen posts (prevents duplicates)
+  seen_posts_file: "seen_posts.json"
+
+  # Log file for debugging
+  log_file: "scraper.log"

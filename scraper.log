@@ -1,0 +1,14 @@
+2026-01-27 20:13:42,814 - __main__ - INFO - ============================================================
+2026-01-27 20:13:42,814 - __main__ - INFO - NYC Apartment Scraper Starting
+2026-01-27 20:13:42,814 - __main__ - INFO - ============================================================
+2026-01-27 20:13:42,814 - storage - INFO - No existing seen posts file, starting fresh
+2026-01-27 20:13:42,814 - __main__ - INFO - TEST MODE - Google Sheets updates disabled
+2026-01-27 20:13:42,814 - __main__ - INFO - Price range: $1500 - $2800
+2026-01-27 20:13:42,814 - __main__ - INFO - Neighborhoods: 21 configured
+2026-01-27 20:13:42,814 - __main__ - INFO - Apartment types: ['studio', '1br', '1 br', '1 bed', '1 bedroom', 'one bedroom']
+2026-01-27 20:13:42,814 - __main__ - INFO - Exclude terms: 13 configured
+2026-01-27 20:13:42,814 - __main__ - INFO - Seen posts tracked: 0
+2026-01-27 20:13:42,815 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.reddit.com:443
+2026-01-27 20:13:42,816 - scraper - ERROR - Error fetching posts: HTTPSConnectionPool(host='www.reddit.com', port=443): Max retries exceeded with url: /r/NYCapartments/new.json?limit=50 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))
+2026-01-27 20:13:42,816 - __main__ - WARNING - No posts fetched
+2026-01-27 20:13:42,816 - __main__ - INFO - Done: 0 fetched, 0 new, 0 passed, 0 added
