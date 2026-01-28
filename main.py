@@ -13,6 +13,7 @@ Usage:
 
 import argparse
 import logging
+import os
 import sys
 import time
 from pathlib import Path
@@ -55,10 +56,11 @@ def load_config(config_path: str = "config.yaml") -> dict:
 
 def run_scrape_cycle(
     scraper: RedditScraper,
-    filter_: ApartmentFilter,
+    filter_,  # Can be ApartmentFilter or AIListingParser
     sheets: SheetsManager,
     storage: SeenPostsStorage,
-    test_mode: bool = False
+    test_mode: bool = False,
+    use_ai: bool = False
 ) -> dict:
     """
     Run a single scrape cycle.
@@ -90,8 +92,11 @@ def run_scrape_cycle(
         logger.info("No new posts to process")
         return stats
 
-    # Apply apartment filters
-    passed = filter_.filter_listings(new_posts)
+    # Apply apartment filters (AI or regex-based)
+    if use_ai:
+        passed = filter_.parse_listings(new_posts)
+    else:
+        passed = filter_.filter_listings(new_posts)
     stats["passed_filter"] = len(passed)
 
     if passed:
@@ -161,13 +166,39 @@ def main():
         user_agent=config["scraping"]["user_agent"]
     )
 
-    filter_ = ApartmentFilter(
-        price_min=config["price"]["min"],
-        price_max=config["price"]["max"],
-        apartment_types=config["apartment_types"],
-        neighborhoods=config["neighborhoods"],
-        exclude_terms=config["exclude_terms"]
-    )
+    # Check if AI parsing is enabled
+    ai_config = config.get("ai", {})
+    use_ai = ai_config.get("enabled", False)
+
+    if use_ai:
+        from ai_parser import AIListingParser
+
+        # Get API key from config or environment
+        api_key = ai_config.get("api_key") or os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            logger.error("AI parsing enabled but no API key found.")
+            logger.error("Set 'ai.api_key' in config.yaml or ANTHROPIC_API_KEY environment variable.")
+            sys.exit(1)
+
+        filter_ = AIListingParser(
+            api_key=api_key,
+            model=ai_config.get("model", "claude-sonnet-4-20250514"),
+            neighborhoods=config["neighborhoods"],
+            apartment_types=config["apartment_types"],
+            exclude_terms=config["exclude_terms"],
+            price_min=config["price"]["min"],
+            price_max=config["price"]["max"],
+        )
+        logger.info(f"Using AI parser (model: {ai_config.get('model', 'claude-sonnet-4-20250514')})")
+    else:
+        filter_ = ApartmentFilter(
+            price_min=config["price"]["min"],
+            price_max=config["price"]["max"],
+            apartment_types=config["apartment_types"],
+            neighborhoods=config["neighborhoods"],
+            exclude_terms=config["exclude_terms"]
+        )
+        logger.info("Using regex/fuzzy matching filter")
 
     storage = SeenPostsStorage(
         storage_file=config["storage"]["seen_posts_file"]
@@ -205,7 +236,7 @@ def main():
         try:
             while True:
                 logger.info("-" * 40)
-                stats = run_scrape_cycle(scraper, filter_, sheets, storage, args.test)
+                stats = run_scrape_cycle(scraper, filter_, sheets, storage, args.test, use_ai)
                 logger.info(
                     f"Cycle complete: {stats['fetched']} fetched, "
                     f"{stats['new']} new, {stats['passed_filter']} passed, "
@@ -220,7 +251,7 @@ def main():
 
     else:
         # Run once
-        stats = run_scrape_cycle(scraper, filter_, sheets, storage, args.test)
+        stats = run_scrape_cycle(scraper, filter_, sheets, storage, args.test, use_ai)
         logger.info(
             f"Done: {stats['fetched']} fetched, "
             f"{stats['new']} new, {stats['passed_filter']} passed, "
