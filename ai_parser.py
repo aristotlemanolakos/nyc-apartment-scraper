@@ -77,6 +77,7 @@ Important rules:
 - is_offering should be false if the post contains phrases like "looking for", "searching", "need apartment", "seeking"
 - For neighborhoods, match against TARGET NEIGHBORHOODS (including common abbreviations like LES=Lower East Side, FiDi=Financial District, Wburg=Williamsburg)
 - has_exclusion should be true for sublets, subleases, room shares, roommate situations, shared apartments
+- Lease assignments, lease takeovers, and lease transfers are NOT exclusions - these are valid apartment offerings
 - price should be the monthly rent amount only (not deposits, broker fees, etc.)
 - matches_criteria is the key decision: does this listing match what we want?
 
