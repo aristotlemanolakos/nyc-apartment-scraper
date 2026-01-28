@@ -1,6 +1,17 @@
 # NYC Apartment Scraper Configuration
 # Edit these values to match your apartment search criteria
 
+# AI Parser settings (uses Claude to parse listings)
+ai:
+  # Set to true to use AI parsing instead of regex/fuzzy matching
+  enabled: true
+
+  # Your Anthropic API key (or set ANTHROPIC_API_KEY environment variable)
+  api_key: ""
+
+  # Model to use for parsing (claude-sonnet-4-20250514 recommended for speed/cost balance)
+  model: "claude-sonnet-4-20250514"
+
 # Scraping settings
 scraping:
   subreddit: "NYCapartments"
