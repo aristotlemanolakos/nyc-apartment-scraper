@@ -21,6 +21,7 @@ ENV/
 *.swo
 
 # Project specific
+config.yaml
 credentials.json
 seen_posts.json
 scraper.log
