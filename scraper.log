@@ -19,3 +19,76 @@
 2026-01-27 16:24:49,125 - sheets - ERROR - Credentials file not found: credentials.json
 2026-01-27 16:24:49,125 - __main__ - ERROR - Failed to connect to Google Sheets
 2026-01-27 16:24:49,125 - __main__ - ERROR - Run with --test to test without Sheets, or check your credentials
+2026-01-28 06:47:55,054 - __main__ - INFO - ============================================================
+2026-01-28 06:47:55,055 - __main__ - INFO - NYC Apartment Scraper Starting
+2026-01-28 06:47:55,055 - __main__ - INFO - ============================================================
+2026-01-28 06:47:55,610 - __main__ - INFO - Using AI parser (model: claude-sonnet-4-20250514)
+2026-01-28 06:47:55,611 - storage - INFO - No existing seen posts file, starting fresh
+2026-01-28 06:47:56,267 - sheets - ERROR - Error connecting to Google Sheets: 
+2026-01-28 06:47:56,267 - __main__ - ERROR - Failed to connect to Google Sheets
+2026-01-28 06:47:56,267 - __main__ - ERROR - Run with --test to test without Sheets, or check your credentials
+2026-01-28 06:49:46,184 - __main__ - INFO - ============================================================
+2026-01-28 06:49:46,185 - __main__ - INFO - NYC Apartment Scraper Starting
+2026-01-28 06:49:46,185 - __main__ - INFO - ============================================================
+2026-01-28 06:49:46,409 - __main__ - INFO - Using AI parser (model: claude-sonnet-4-20250514)
+2026-01-28 06:49:46,409 - storage - INFO - No existing seen posts file, starting fresh
+2026-01-28 06:49:47,290 - sheets - INFO - Connected to Google Sheet: 1juuKZsT1UCHlyJgU9J8zWGmkPFlYu5rCntY0FXewDYI
+2026-01-28 06:49:48,705 - __main__ - INFO - Price range: $1500 - $3800
+2026-01-28 06:49:48,705 - __main__ - INFO - Neighborhoods: 24 configured
+2026-01-28 06:49:48,705 - __main__ - INFO - Apartment types: ['studio', '1br', '1 br', '1 bed', '1 bedroom', 'one bedroom']
+2026-01-28 06:49:48,705 - __main__ - INFO - Exclude terms: 11 configured
+2026-01-28 06:49:48,705 - __main__ - INFO - Seen posts tracked: 0
+2026-01-28 06:49:49,757 - scraper - INFO - Fetched 50 posts from r/NYCapartments
+2026-01-28 06:49:49,757 - storage - INFO - Filtered 50 posts -> 50 unseen
+2026-01-28 06:49:52,904 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:49:56,125 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:49:59,071 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:01,709 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:04,270 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:06,702 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:09,290 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:11,525 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:14,283 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:17,478 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:19,968 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:22,721 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:26,287 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:29,254 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:31,509 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:33,861 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:36,885 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:39,691 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:42,464 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:45,147 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:47,987 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:50,009 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:52,624 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:55,868 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:50:58,336 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:00,950 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:03,764 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:06,425 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:08,886 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:11,548 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:14,559 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:17,355 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:19,637 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:22,730 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:25,678 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:28,648 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:31,718 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:35,075 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:37,433 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:39,933 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:42,679 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:45,441 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:48,148 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:50,914 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:53,663 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:57,002 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:51:59,640 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:52:02,338 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:52:04,984 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:52:07,931 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-28 06:52:07,933 - ai_parser - INFO - AI parsed 50 posts -> 0 passed
+2026-01-28 06:52:07,935 - __main__ - INFO - Done: 50 fetched, 50 new, 0 passed, 0 added
