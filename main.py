@@ -94,22 +94,28 @@ def run_scrape_cycle(
 
     # Apply apartment filters (AI or regex-based)
     if use_ai:
-        passed = filter_.parse_listings(new_posts)
+        all_results = filter_.parse_listings(new_posts)
     else:
-        passed = filter_.filter_listings(new_posts)
-    stats["passed_filter"] = len(passed)
+        all_results = filter_.filter_listings(new_posts)
 
-    if passed:
-        logger.info(f"{len(passed)} listings passed filters:")
-        for post, result in passed:
-            logger.info(f"  - {post['title'][:60]}...")
-            logger.info(f"    Price: ${result['extracted_price']}, "
-                       f"Neighborhood: {result['matched_neighborhood']}")
+    # Count how many meet criteria
+    passed_count = sum(1 for _, result in all_results if result.get("passed"))
+    stats["passed_filter"] = passed_count
 
-    # Add to Google Sheets (if not test mode)
-    if passed and not test_mode:
+    if all_results:
+        logger.info(f"Processed {len(all_results)} listings ({passed_count} meet criteria):")
+        for post, result in all_results:
+            status = "✓" if result.get("passed") else "✗"
+            logger.info(f"  {status} {post['title'][:55]}...")
+            if result.get("passed"):
+                logger.info(f"    Price: ${result.get('extracted_price', 'N/A')}, "
+                           f"Neighborhood: {result.get('matched_neighborhood', 'N/A')}")
+
+    # Add ALL listings to Google Sheets (if not test mode)
+    # Each listing has "Meets Criteria" column so user can filter in sheet
+    if all_results and not test_mode:
         if sheets.worksheet:
-            added = sheets.add_listings(passed)
+            added = sheets.add_listings(all_results)
             stats["added_to_sheet"] = added
         else:
             logger.warning("Sheets not connected, skipping upload")

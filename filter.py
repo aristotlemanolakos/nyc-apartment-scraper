@@ -197,16 +197,19 @@ class ApartmentFilter:
         """
         Filter multiple listings.
 
-        Returns list of (post, filter_result) tuples for posts that passed.
+        Returns list of (post, filter_result) tuples for ALL posts.
+        Each result includes 'passed' boolean so caller can filter if needed.
         """
-        passed = []
+        all_results = []
+        passed_count = 0
         for post in posts:
             result = self.filter_listing(post)
+            all_results.append((post, result))
             if result["passed"]:
-                passed.append((post, result))
+                passed_count += 1
                 logger.info(f"Post passed: {post.get('title', '')[:50]}...")
             else:
-                logger.debug(f"Post filtered out: {result['reasons']}")
+                logger.info(f"Post filtered: {post.get('title', '')[:50]}... - {result['reasons'][0] if result['reasons'] else 'unknown'}")
 
-        logger.info(f"Filtered {len(posts)} posts -> {len(passed)} passed")
-        return passed
+        logger.info(f"Filtered {len(posts)} posts -> {passed_count} meet criteria")
+        return all_results

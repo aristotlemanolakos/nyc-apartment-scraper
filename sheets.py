@@ -24,6 +24,8 @@ HEADERS = [
     "Price",
     "Neighborhood",
     "Apartment Type",
+    "Meets Criteria",
+    "Filter Reason",
     "Author",
     "Posted Date",
     "Link",
@@ -94,7 +96,7 @@ class SheetsManager:
     def _format_headers(self):
         """Apply formatting to header row."""
         try:
-            self.worksheet.format('A1:K1', {
+            self.worksheet.format('A1:M1', {
                 "backgroundColor": {"red": 0.2, "green": 0.4, "blue": 0.6},
                 "textFormat": {"bold": True, "foregroundColor": {"red": 1, "green": 1, "blue": 1}},
                 "horizontalAlignment": "CENTER"
@@ -121,8 +123,8 @@ class SheetsManager:
             Set of post URLs already in the sheet
         """
         try:
-            # Link is in column H (8th column)
-            links = self.worksheet.col_values(8)
+            # Link is in column J (10th column)
+            links = self.worksheet.col_values(10)
             # Skip header
             return set(links[1:]) if len(links) > 1 else set()
         except Exception as e:
@@ -141,12 +143,21 @@ class SheetsManager:
             True if added successfully
         """
         try:
+            # Determine meets criteria status
+            meets_criteria = "Yes" if filter_result.get("passed") else "No"
+
+            # Build filter reason string
+            reasons = filter_result.get("reasons", [])
+            filter_reason = "; ".join(reasons) if reasons else "N/A"
+
             row = [
                 datetime.now().strftime("%Y-%m-%d %H:%M"),
                 post.get("title", "")[:200],  # Truncate long titles
                 f"${filter_result.get('extracted_price', 'N/A')}" if filter_result.get('extracted_price') else "N/A",
                 filter_result.get("matched_neighborhood", "N/A"),
                 filter_result.get("matched_type", "N/A"),
+                meets_criteria,
+                filter_reason[:500],  # Truncate long reasons
                 post.get("author", ""),
                 post.get("created_datetime", "")[:10],  # Just date
                 post.get("url", ""),
