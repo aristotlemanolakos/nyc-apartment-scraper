@@ -21,7 +21,7 @@ scraping:
 # Price range (monthly rent in USD)
 price:
   min: 1500
-  max: 2800
+  max: 3800
 
 # Apartment types you're looking for
 # The scraper will fuzzy match these terms
@@ -78,8 +78,6 @@ exclude_terms:
   - "roommate"
   - "roommates"
   - "room in"
-  - "shared"
-  - "sharing"
   - "looking for room"
   - "seeking room"
 
@@ -87,7 +85,7 @@ exclude_terms:
 google_sheets:
   # Your Google Sheet ID (from the URL)
   # Example: https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID_HERE/edit
-  sheet_id: "YOUR_SHEET_ID_HERE"
+  sheet_id: "1juuKZsT1UCHlyJgU9J8zWGmkPFlYu5rCntY0FXewDYI"
 
   # Name of the worksheet tab to use
   worksheet_name: "Apartments"
