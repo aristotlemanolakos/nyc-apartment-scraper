@@ -5,25 +5,23 @@ Reddit scraper module for fetching new apartment listings.
 import requests
 import time
 import logging
-from typing import List, Dict, Optional
+from typing import List, Dict
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
 
 class RedditScraper:
-    """Scrapes new posts from a subreddit's JSON endpoint."""
+    """Scrapes new posts from multiple subreddits via JSON endpoints."""
 
     BASE_URL = "https://www.reddit.com/r/{subreddit}/new.json"
 
-    def __init__(self, subreddit: str, user_agent: str):
-        self.subreddit = subreddit
+    def __init__(self, subreddits: List[str], user_agent: str):
+        self.subreddits = subreddits
         self.session = requests.Session()
-        self.session.headers.update({
-            "User-Agent": user_agent
-        })
+        self.session.headers.update({"User-Agent": user_agent})
         self.last_request_time = 0
-        self.min_request_interval = 2  # Reddit rate limit: be nice
+        self.min_request_interval = 2
 
     def _rate_limit(self):
         """Ensure we don't hit Reddit too frequently."""
@@ -33,48 +31,44 @@ class RedditScraper:
         self.last_request_time = time.time()
 
     def fetch_new_posts(self, limit: int = 25) -> List[Dict]:
-        """
-        Fetch the newest posts from the subreddit.
+        """Fetch newest posts from all configured subreddits."""
+        all_posts = []
+        for subreddit in self.subreddits:
+            posts = self._fetch_subreddit(subreddit, limit)
+            all_posts.extend(posts)
+        logger.info(f"Fetched {len(all_posts)} posts from {len(self.subreddits)} subreddits")
+        return all_posts
 
-        Args:
-            limit: Number of posts to fetch (max 100)
-
-        Returns:
-            List of post data dictionaries
-        """
+    def _fetch_subreddit(self, subreddit: str, limit: int) -> List[Dict]:
+        """Fetch newest posts from a single subreddit."""
         self._rate_limit()
-
-        url = self.BASE_URL.format(subreddit=self.subreddit)
+        url = self.BASE_URL.format(subreddit=subreddit)
         params = {"limit": min(limit, 100)}
 
         try:
             response = self.session.get(url, params=params, timeout=30)
             response.raise_for_status()
-
             data = response.json()
             posts = []
-
             for child in data.get("data", {}).get("children", []):
                 post_data = child.get("data", {})
-                posts.append(self._extract_post_info(post_data))
-
-            logger.info(f"Fetched {len(posts)} posts from r/{self.subreddit}")
+                posts.append(self._extract_post_info(post_data, subreddit))
             return posts
-
         except requests.exceptions.RequestException as e:
-            logger.error(f"Error fetching posts: {e}")
+            logger.error(f"Error fetching r/{subreddit}: {e}")
             return []
         except ValueError as e:
-            logger.error(f"Error parsing JSON response: {e}")
+            logger.error(f"Error parsing r/{subreddit} JSON: {e}")
             return []
 
-    def _extract_post_info(self, post_data: Dict) -> Dict:
+    def _extract_post_info(self, post_data: Dict, subreddit: str) -> Dict:
         """Extract relevant information from a Reddit post."""
         created_utc = post_data.get("created_utc", 0)
         created_dt = datetime.utcfromtimestamp(created_utc) if created_utc else None
 
         return {
             "id": post_data.get("id", ""),
+            "subreddit": subreddit,
             "title": post_data.get("title", ""),
             "selftext": post_data.get("selftext", ""),
             "author": post_data.get("author", "[deleted]"),
