@@ -3,7 +3,7 @@ Google Sheets integration for storing apartment listings.
 """
 
 import logging
-from typing import List, Dict, Optional
+from typing import List, Dict
 from datetime import datetime
 
 import gspread
