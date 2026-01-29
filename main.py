@@ -54,9 +54,17 @@ def load_config(config_path: str = "config.yaml") -> dict:
 def get_subreddits(config: dict) -> list:
     """Get subreddit list from config. Supports both old and new format."""
     scraping = config["scraping"]
-    if "subreddits" in scraping:
-        return scraping["subreddits"]
-    return [scraping["subreddit"]]
+    value = scraping.get("subreddits", scraping.get("subreddit", []))
+    if isinstance(value, str):
+        return [value]
+    # Flatten in case of nested lists
+    result = []
+    for item in value:
+        if isinstance(item, list):
+            result.extend(item)
+        else:
+            result.append(item)
+    return result
 
 
 def run_scrape_cycle(
